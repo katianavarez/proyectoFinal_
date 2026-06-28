@@ -28,7 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.navigation.Screen
 
 @Composable
-fun Login(navController: NavController) {
+fun LoginScreen(navController: NavController) {
     var correo by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -130,9 +130,9 @@ fun Login(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+fun LoginScreenPreview() {
     MaterialTheme {
-        Login(navController = rememberNavController())
+        LoginScreen(navController = rememberNavController())
     }
 }
 
