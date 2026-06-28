@@ -24,3 +24,10 @@ Aplicación Android para registrar libros leídos, en curso o por leer, llevar e
 ## Tecnologías
 
 - Android (Kotlin)
+
+## Mock up
+
+https://www.figma.com/design/3311X35p2DH8C5Aovkl2lV/Proyecto-Final---Lectura-y-Rese%C3%B1as?node-id=0-1&t=bMX1e1GmDxQPxCJ2-1
+
+<img width="3576" height="2143" alt="Proyecto Final - Lectura y Reseñas" src="https://github.com/user-attachments/assets/0dca6cd1-a9c4-42e6-b3ac-3312744b5dc3" />
+
