@@ -2,14 +2,14 @@
 
 Aplicación Android para registrar libros leídos, en curso o por leer, llevar el progreso de lectura, escribir reseñas personales y visualizar estadísticas de lectura.
 
-## Equipo [#]
+## Equipo #2
 
 | Integrante | Caso de uso individual |
 |---|---|
 | Katia Ximena Návarez Espinoza |  |
 | Janeth Cristina Galvan Quiñonez |  |
-|  |  |
-|  |  |
+| Rene Ezequiel Figueroa López |  |
+| Jorge Alonso Burgos Maldonado |  |
 
 ## Pantallas
 
