@@ -1,6 +1,8 @@
 package navarez.katia.proyectofinal.navigation
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,7 +14,8 @@ import navarez.katia.proyectofinal.ui.screens.RegistroScreen
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Login.route,
+        modifier = Modifier.statusBarsPadding()) {
         composable(Screen.Login.route) {
             LoginScreen(navController)
         }
