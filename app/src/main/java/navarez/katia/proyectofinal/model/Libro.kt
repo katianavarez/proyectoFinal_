@@ -9,6 +9,7 @@ data class Libro(
     val numPaginas: Int,
     val sinopsis: String,
     val estado: EstadoLibro,
+    val portada: Int,
     val paginaActual: Int = 0,
     val rating: Float = 0f,
     val resena: String = "",

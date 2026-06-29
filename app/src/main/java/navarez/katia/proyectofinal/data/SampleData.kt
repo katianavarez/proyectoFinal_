@@ -1,5 +1,6 @@
 package navarez.katia.proyectofinal.data
 
+import navarez.katia.proyectofinal.R
 import navarez.katia.proyectofinal.model.EstadoLibro
 import navarez.katia.proyectofinal.model.Libro
 
@@ -8,15 +9,15 @@ object SampleData {
         Libro(
             1, "El Alquimista", "Paulo Coelho", "Ficción", "Novela",
             192, "Un joven pastor andaluz emprende un viaje en busca de un tesoro.",
-            EstadoLibro.EN_CURSO, paginaActual = 125
+            EstadoLibro.EN_CURSO, portada = R.drawable.el_alquimista, paginaActual = 125
         ),
         Libro(2, "Cien años de soledad", "Gabriel García Márquez", "Ficción", "Realismo mágico",
             471, "La historia de la familia Buendía a lo largo de varias generaciones.",
             EstadoLibro.TERMINADO, rating = 5f, resena = "Una obra maestra.",
-            fechaInicio = "2023-10-01", fechaFin = "2023-10-15"),
+            fechaInicio = "2023-10-01",  fechaFin = "2023-10-15", portada = R.drawable.el_alquimista, ),
         Libro(3, "Sapiens", "Yuval Noah Harari", "No ficción", "Historia",
-            443, "Una breve historia de la humanidad.", EstadoLibro.POR_LEER),
+            443, "Una breve historia de la humanidad.", EstadoLibro.POR_LEER, portada = R.drawable.el_alquimista, ),
         Libro(4, "Clean Code", "Robert C. Martin", "Académico", "Ingeniería de software",
-            352, "Buenas prácticas para escribir código mantenible.", EstadoLibro.POR_LEER)
+            352, "Buenas prácticas para escribir código mantenible.", EstadoLibro.POR_LEER, portada = R.drawable.el_alquimista, )
     )
 }
