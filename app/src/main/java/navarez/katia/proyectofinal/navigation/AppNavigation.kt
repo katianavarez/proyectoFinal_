@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.ui.screens.ListaLibrosScreen
 import navarez.katia.proyectofinal.ui.screens.LoginScreen
+import navarez.katia.proyectofinal.ui.screens.PerfilScreen
 import navarez.katia.proyectofinal.ui.screens.RegistroScreen
 
 @Composable
@@ -21,6 +22,10 @@ fun AppNavigation() {
         }
         composable(Screen.ListaLibros.route) {
             ListaLibrosScreen(navController)
+        }
+
+        composable(Screen.Perfil.route) {
+            PerfilScreen(navController)
         }
     }
 }

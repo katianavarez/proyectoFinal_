@@ -46,7 +46,6 @@ fun PerfilScreen(navController: NavController) {
     var profileImageUri by remember { mutableStateOf<android.net.Uri?>(null) }
     val context = LocalContext.current
 
-    // Launcher para abrir la galería y obtener el resultado
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: android.net.Uri? ->
@@ -61,16 +60,14 @@ fun PerfilScreen(navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Contenedor del avatar con el icono de editar
         Box(
             modifier = Modifier
                 .size(120.dp)
-                .clickable { launcher.launch("image/*") }, // Lanza el selector de imágenes
+                .clickable { launcher.launch("image/*") },
             contentAlignment = Alignment.Center
         ) {
             // Imagen de perfil
             if (profileImageUri != null) {
-                // Muestra la imagen seleccionada
                 Image(
                     painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(context)
@@ -85,7 +82,7 @@ fun PerfilScreen(navController: NavController) {
                         .clip(CircleShape)
                 )
             } else {
-                // Muestra un círculo gris por defecto si no hay imagen
+                // muestra un círculo gris si no hay imagen
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -93,8 +90,6 @@ fun PerfilScreen(navController: NavController) {
                         .background(Color.Gray)
                 )
             }
-
-            // Icono de editar superpuesto
             Box(
                 modifier = Modifier
                     .size(32.dp)
