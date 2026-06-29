@@ -8,8 +8,8 @@ Aplicación Android para registrar libros leídos, en curso o por leer, llevar e
 |---|---|
 | Katia Ximena Návarez Espinoza |  |
 | Janeth Cristina Galvan Quiñonez |  |
-|  |  |
-|  |  |
+| Rene Ezequiel Figueroa López	 |  |
+| Jorge Alonso Burgos Maldonado |  |
 
 ## Pantallas
 

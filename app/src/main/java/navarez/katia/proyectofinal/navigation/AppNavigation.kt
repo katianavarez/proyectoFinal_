@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import navarez.katia.proyectofinal.ui.screens.AgregarLibroScreen
 import navarez.katia.proyectofinal.ui.screens.ListaLibrosScreen
 import navarez.katia.proyectofinal.ui.screens.LoginScreen
 import navarez.katia.proyectofinal.ui.screens.PerfilScreen
@@ -29,6 +30,9 @@ fun AppNavigation() {
 
         composable(Screen.Perfil.route) {
             PerfilScreen(navController)
+        }
+        composable(Screen.AgregarLibro.route) {
+            AgregarLibroScreen(navController)
         }
     }
 }
