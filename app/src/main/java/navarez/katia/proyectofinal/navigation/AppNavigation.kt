@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.ui.screens.AgregarLibroScreen
+import navarez.katia.proyectofinal.ui.screens.DetalleLibroScreen
 import navarez.katia.proyectofinal.ui.screens.ListaLibrosScreen
 import navarez.katia.proyectofinal.ui.screens.LoginScreen
 import navarez.katia.proyectofinal.ui.screens.PerfilScreen
@@ -33,6 +34,11 @@ fun AppNavigation() {
         }
         composable(Screen.AgregarLibro.route) {
             AgregarLibroScreen(navController)
+        }
+
+        composable(Screen.Detalle.route) { backStackEntry ->
+            val libroId = backStackEntry.arguments?.getInt("libroId") ?: return@composable
+            DetalleLibroScreen(navController, libroId)
         }
     }
 }
