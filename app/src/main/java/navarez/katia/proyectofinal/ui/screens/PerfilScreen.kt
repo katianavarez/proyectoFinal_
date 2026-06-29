@@ -88,27 +88,36 @@ fun PerfilScreen(navController: NavController) {
         OutlinedTextField(
             value = nombre,
             onValueChange = { nombre = it },
+            placeholder = {Text("nombre completo")},
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Text("Correo electrónico", style = MaterialTheme.typography.labelMedium)
+        Spacer(Modifier.height(6.dp))
         // correo electrónico
         OutlinedTextField(
             value = correo,
+            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
+            enabled = false,
             onValueChange = {},
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
+
+        Text("Fecha de nacimiento", style = MaterialTheme.typography.labelMedium)
+        Spacer(Modifier.height(6.dp))
         // fecha de nacimiento
         OutlinedTextField(
             value = fechaNacimiento,
             onValueChange = {},
+            leadingIcon = { Icon(Icons.Default.CalendarToday, contentDescription = null) },
             readOnly = true,
-            enabled = true,
+            enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { mostrarDatePicker = true }
@@ -116,6 +125,8 @@ fun PerfilScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+            Text("Género", style = MaterialTheme.typography.labelMedium)
+            Spacer(Modifier.height(6.dp))
         // Género
         OutlinedTextField(
             value = genero,
@@ -126,6 +137,8 @@ fun PerfilScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Text("Profesión", style = MaterialTheme.typography.labelMedium)
+        Spacer(Modifier.height(6.dp))
         // Profesión
         OutlinedTextField(
             value = profesion,
@@ -186,7 +199,26 @@ fun PerfilScreen(navController: NavController) {
             )
         }
     }
-
+    if (mostrarDatePicker) {
+        val datePickerState = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { mostrarDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                        fechaNacimiento = formato.format(java.util.Date(millis))
+                    }
+                    mostrarDatePicker = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { mostrarDatePicker = false }) { Text("Cancelar") }
+            }
+        ) {
+            DatePicker(state = datePickerState)
+        }
+    }
 }
 
 @Preview(showBackground = true)
