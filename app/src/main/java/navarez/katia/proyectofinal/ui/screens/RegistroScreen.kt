@@ -21,15 +21,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import navarez.katia.proyectofinal.navigation.Screen
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroScreen(navController: NavController) {
+fun RegistroScreen(onNavigateToLogin: () -> Unit) {
     var nombre by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     var fechaNacimiento by remember { mutableStateOf("") }
@@ -185,11 +182,7 @@ fun RegistroScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Button(
-                    onClick = {
-                        navController.navigate(Screen.Login.route) {
-                            popUpTo(Screen.Login.route) { inclusive = true }
-                        }
-                    },
+                    onClick = { onNavigateToLogin() },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(text = "Crear cuenta")
@@ -206,7 +199,7 @@ fun RegistroScreen(navController: NavController) {
             Text(
                 text = "Inicia sesión",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { navController.popBackStack() }
+                modifier = Modifier.clickable { onNavigateToLogin() }
             )
         }
     }
@@ -237,6 +230,8 @@ fun RegistroScreen(navController: NavController) {
 @Composable
 fun RegistroScreenPreview() {
     MaterialTheme {
-        RegistroScreen(navController = rememberNavController())
+        RegistroScreen(
+            onNavigateToLogin = {}
+        )
     }
 }

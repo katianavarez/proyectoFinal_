@@ -25,15 +25,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.data.SampleData
 import navarez.katia.proyectofinal.model.EstadoLibro
 import navarez.katia.proyectofinal.model.Libro
-import navarez.katia.proyectofinal.navigation.Screen
 
 @Composable
-fun ListaLibrosScreen(navController: NavController) {
+fun ListaLibrosScreen(onNavigateToDetalle: (Int) -> Unit, onNavigateToAgregar: () -> Unit) {
     var filtroSeleccionado by remember { mutableStateOf("Todos") }
     var ordenarPorRating by remember { mutableStateOf(false) }
     val filtros = listOf("Todos", "Por leer", "En curso", "Terminados")
@@ -116,7 +113,7 @@ fun ListaLibrosScreen(navController: NavController) {
                     items(librosOrdenados) { libro ->
                         LibroCard(
                             libro = libro,
-                            onClick = { navController.navigate(Screen.Detalle.createRoute(libro.id)) }
+                            onClick = { onNavigateToDetalle(libro.id) }
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                     }
@@ -126,7 +123,7 @@ fun ListaLibrosScreen(navController: NavController) {
         }
 
         FloatingActionButton(
-            onClick = { navController.navigate(Screen.AgregarLibro.route) },
+            onClick = { onNavigateToAgregar() },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(20.dp)
@@ -226,6 +223,9 @@ fun LibroCard(libro: Libro, onClick: () -> Unit) {
 @Composable
 fun ListaLibrosScreenPreview() {
     MaterialTheme {
-        ListaLibrosScreen(navController = rememberNavController())
+        ListaLibrosScreen(
+            onNavigateToDetalle = {},
+            onNavigateToAgregar = {}
+        )
     }
 }

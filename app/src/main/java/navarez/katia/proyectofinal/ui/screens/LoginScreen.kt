@@ -23,12 +23,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import navarez.katia.proyectofinal.navigation.Screen
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(onNavigateToRegistro: () -> Unit, onNavigateToHome: () -> Unit) {
     var correo by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -106,7 +103,7 @@ fun LoginScreen(navController: NavController) {
                 Spacer(Modifier.height(20.dp))
 
                 Button(
-                    onClick = { navController.navigate(Screen.ListaLibros.route) },
+                    onClick = { onNavigateToHome() },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Iniciar sesión")
@@ -122,7 +119,7 @@ fun LoginScreen(navController: NavController) {
                 "Regístrate",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { navController.navigate(Screen.Registro.route) }
+                modifier = Modifier.clickable { onNavigateToRegistro() }
             )
         }
     }
@@ -132,7 +129,7 @@ fun LoginScreen(navController: NavController) {
 @Composable
 fun LoginScreenPreview() {
     MaterialTheme {
-        LoginScreen(navController = rememberNavController())
+        LoginScreen(onNavigateToRegistro = {}, onNavigateToHome = {})
     }
 }
 
