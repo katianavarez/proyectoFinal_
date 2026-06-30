@@ -20,8 +20,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.data.SampleData
 import navarez.katia.proyectofinal.model.EstadoLibro
 
@@ -368,6 +370,17 @@ fun DetalleLibroScreen(navController: NavController, libroId: Int) {
                 TextButton(onClick = { mostrarPickerFin = false }) { Text("Cancelar") }
             }
         ) { DatePicker(state = estado) }
+    }
+}
+
+@Preview(showBackground = true, heightDp = 1500)
+@Composable
+fun DetalleLibroScreenPreview() {
+    MaterialTheme {
+        DetalleLibroScreen(
+            navController = rememberNavController(),
+            libroId = 1
+        )
     }
 }
 
