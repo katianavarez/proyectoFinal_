@@ -19,11 +19,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import navarez.katia.proyectofinal.navigation.Screen
 import java.text.SimpleDateFormat
 import java.util.Locale
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,7 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PerfilScreen(navController: NavController) {
+fun PerfilScreen(onCerrarSesion: () -> Unit) {
 
     var nombre by remember { mutableStateOf("Juan Francisco López") }
     val correo = "juan.francisco@email.com"
@@ -226,11 +223,7 @@ fun PerfilScreen(navController: NavController) {
             // xerrar sesion
             Row(
                 modifier = Modifier
-                    .clickable {
-                        navController.navigate(Screen.Login.route) {
-                            popUpTo(Screen.ListaLibros.route) { inclusive = true }
-                        }
-                    }
+                    .clickable { onCerrarSesion() }
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -275,6 +268,6 @@ fun PerfilScreen(navController: NavController) {
 @Composable
 fun PerfilScreenPreview() {
     MaterialTheme {
-        PerfilScreen(navController = rememberNavController())
+        PerfilScreen(onCerrarSesion = {})
     }
 }

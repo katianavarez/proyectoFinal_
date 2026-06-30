@@ -27,17 +27,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.model.EstadoLibro
-import navarez.katia.proyectofinal.navigation.Screen
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AgregarLibroScreen(navController: NavController) {
-
+fun AgregarLibroScreen(
+    onNavigateBack: () -> Unit,
+    onNavigateToListaLibros: () -> Unit,
+    onNavigateToEstadisticas: () -> Unit,
+    onNavigateToPerfil: () -> Unit
+) {
     var titulo by remember { mutableStateOf("") }
     var autor by remember { mutableStateOf("") }
     var isbn by remember { mutableStateOf("") }
@@ -64,18 +65,39 @@ fun AgregarLibroScreen(navController: NavController) {
             TopAppBar(
                 title = { Text("Agregar Libro") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { onNavigateBack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
                     }
                 },
                 actions = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = { }) {
                         Icon(Icons.Default.Search, contentDescription = "Buscar")
                     }
                 }
             )
         },
-        bottomBar = { BarraNavegacionInferior(navController) }
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { onNavigateToListaLibros() },
+                    icon = { Icon(Icons.Default.MenuBook, contentDescription = null) },
+                    label = { Text("Mis libros") }
+                )
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { onNavigateToEstadisticas() },
+                    icon = { Icon(Icons.Default.BarChart, contentDescription = null) },
+                    label = { Text("Estadísticas") }
+                )
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { onNavigateToPerfil() },
+                    icon = { Icon(Icons.Default.Person, contentDescription = null) },
+                    label = { Text("Perfil") }
+                )
+            }
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -91,7 +113,7 @@ fun AgregarLibroScreen(navController: NavController) {
                     .height(150.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f))
-                    .clickable {  },
+                    .clickable { },
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -245,9 +267,7 @@ fun AgregarLibroScreen(navController: NavController) {
             }
 
             when (estadoSeleccionado) {
-                EstadoLibro.POR_LEER -> {
-
-                }
+                EstadoLibro.POR_LEER -> { }
 
                 EstadoLibro.EN_CURSO -> {
                     Spacer(Modifier.height(16.dp))
@@ -351,7 +371,7 @@ fun AgregarLibroScreen(navController: NavController) {
             Spacer(Modifier.height(24.dp))
 
             Button(
-                onClick = { navController.popBackStack() },
+                onClick = { onNavigateBack() },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Guardar libro")
@@ -416,40 +436,15 @@ private fun EtiquetaCampo(texto: String) {
     Spacer(Modifier.height(4.dp))
 }
 
-@Composable
-private fun BarraNavegacionInferior(navController: NavController) {
-    NavigationBar {
-        NavigationBarItem(
-            selected = true,
-            onClick = { navController.navegarSiExiste(Screen.ListaLibros.route) },
-            icon = { Icon(Icons.Default.MenuBook, contentDescription = null) },
-            label = { Text("Mis libros") }
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = { navController.navegarSiExiste(Screen.Estadisticas.route) },
-            icon = { Icon(Icons.Default.BarChart, contentDescription = null) },
-            label = { Text("Estadísticas") }
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = { navController.navegarSiExiste(Screen.Perfil.route) },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) },
-            label = { Text("Perfil") }
-        )
-    }
-}
-
-private fun NavController.navegarSiExiste(ruta: String) {
-    if (graph.findNode(ruta) != null) {
-        navigate(ruta) { launchSingleTop = true }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun AgregarLibroScreenPreview() {
     MaterialTheme {
-        AgregarLibroScreen(navController = rememberNavController())
+        AgregarLibroScreen(
+            onNavigateBack = {},
+            onNavigateToListaLibros = {},
+            onNavigateToEstadisticas = {},
+            onNavigateToPerfil = {}
+        )
     }
 }

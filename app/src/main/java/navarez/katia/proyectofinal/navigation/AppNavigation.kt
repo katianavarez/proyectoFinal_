@@ -9,10 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import navarez.katia.proyectofinal.ui.screens.AgregarLibroScreen
 import navarez.katia.proyectofinal.ui.screens.DetalleLibroScreen
+import navarez.katia.proyectofinal.ui.screens.EstadisticasScreen
 import navarez.katia.proyectofinal.ui.screens.ListaLibrosScreen
 import navarez.katia.proyectofinal.ui.screens.LoginScreen
+import navarez.katia.proyectofinal.ui.screens.PerfilScreen
 import navarez.katia.proyectofinal.ui.screens.RegistroScreen
 
 @Composable
@@ -52,6 +55,48 @@ fun AppNavigation() {
                         navController.navigate(Detalle(libroId))
                     },
                     onNavigateToAgregar = { navController.navigate(AgregarLibro) }
+                )
+            }
+
+            composable<Detalle> { backStackEntry ->
+                val detalle: Detalle = backStackEntry.toRoute()
+                DetalleLibroScreen(
+                    libroId = detalle.libroId,
+                    onNavigateBack = { navController.popBackStack() },
+                    onNavigateToListaLibros = {
+                        navController.navigate(ListaLibros) {
+                            popUpTo(ListaLibros) { inclusive = true }
+                        }
+                    },
+                    onNavigateToEstadisticas = { navController.navigate(Estadisticas) },
+                    onNavigateToPerfil = { navController.navigate(Perfil) }
+                )
+            }
+
+            composable<AgregarLibro> {
+                AgregarLibroScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    onNavigateToListaLibros = {
+                        navController.navigate(ListaLibros) {
+                            popUpTo(ListaLibros) { inclusive = true }
+                        }
+                    },
+                    onNavigateToEstadisticas = { navController.navigate(Estadisticas) },
+                    onNavigateToPerfil = { navController.navigate(Perfil) }
+                )
+            }
+
+            composable<Estadisticas> {
+                EstadisticasScreen()
+            }
+
+            composable<Perfil> {
+                PerfilScreen(
+                    onCerrarSesion = {
+                        navController.navigate(Login) {
+                            popUpTo(ListaLibros) { inclusive = true }
+                        }
+                    }
                 )
             }
         }

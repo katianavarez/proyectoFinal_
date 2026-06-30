@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,19 +19,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import navarez.katia.proyectofinal.data.SampleData
 import navarez.katia.proyectofinal.model.EstadoLibro
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetalleLibroScreen(navController: NavController, libroId: Int) {
-
+fun DetalleLibroScreen(
+    libroId: Int,
+    onNavigateBack: () -> Unit,
+    onNavigateToListaLibros: () -> Unit,
+    onNavigateToEstadisticas: () -> Unit,
+    onNavigateToPerfil: () -> Unit
+) {
     val libro = SampleData.libros.find { it.id == libroId }
         ?: SampleData.libros.first()
 
@@ -47,7 +50,7 @@ fun DetalleLibroScreen(navController: NavController, libroId: Int) {
             TopAppBar(
                 title = { Text("Diario de Lectura") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { onNavigateBack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
                     }
                 },
@@ -65,19 +68,19 @@ fun DetalleLibroScreen(navController: NavController, libroId: Int) {
             NavigationBar {
                 NavigationBarItem(
                     selected = true,
-                    onClick = { navController.navigate("lista_libros") },
+                    onClick = { onNavigateToListaLibros() },
                     icon = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null) },
                     label = { Text("Mis libros") }
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("estadisticas") },
+                    onClick = { onNavigateToEstadisticas() },
                     icon = { Icon(Icons.Default.BarChart, contentDescription = null) },
                     label = { Text("Estadísticas") }
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("perfil") },
+                    onClick = { onNavigateToPerfil() },
                     icon = { Icon(Icons.Default.Person, contentDescription = null) },
                     label = { Text("Perfil") }
                 )
@@ -373,14 +376,16 @@ fun DetalleLibroScreen(navController: NavController, libroId: Int) {
     }
 }
 
-@Preview(showBackground = true, heightDp = 1500)
+@Preview(showBackground = true)
 @Composable
 fun DetalleLibroScreenPreview() {
     MaterialTheme {
         DetalleLibroScreen(
-            navController = rememberNavController(),
-            libroId = 1
+            libroId = 1,
+            onNavigateBack = {},
+            onNavigateToListaLibros = {},
+            onNavigateToEstadisticas = {},
+            onNavigateToPerfil = {}
         )
     }
 }
-
