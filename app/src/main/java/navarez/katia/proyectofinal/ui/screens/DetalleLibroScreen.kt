@@ -252,8 +252,122 @@ fun DetalleLibroScreen(navController: NavController, libroId: Int) {
                 Spacer(Modifier.height(12.dp))
             }
 
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "Tu Reseña",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    Text("Calificación", style = MaterialTheme.typography.labelMedium)
+                    Spacer(Modifier.height(4.dp))
+                    Row {
+                        (1..5).forEach { i ->
+                            Icon(
+                                imageVector = if (i <= calificacion) Icons.Default.Star else Icons.Default.StarBorder,
+                                contentDescription = "Estrella $i",
+                                tint = if (i <= calificacion) Color(0xFFFFC107)
+                                else MaterialTheme.colorScheme.outline,
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .clickable { calificacion = i }
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(12.dp))
+                    Text("¿Qué te pareció?", style = MaterialTheme.typography.labelMedium)
+                    Spacer(Modifier.height(4.dp))
+                    OutlinedTextField(
+                        value = resena,
+                        onValueChange = { resena = it },
+                        placeholder = { Text("Escribe tus pensamientos sobre esta lectura...") },
+                        minLines = 3,
+                        modifier = Modifier.fillMaxWidth().height(120.dp)
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Fecha Inicio", style = MaterialTheme.typography.labelMedium)
+                            Spacer(Modifier.height(4.dp))
+                            OutlinedTextField(
+                                value = fechaInicio,
+                                onValueChange = {},
+                                readOnly = true,
+                                placeholder = { Text("mm/dd/yyyy") },
+                                trailingIcon = {
+                                    Icon(Icons.Default.CalendarToday, contentDescription = null,
+                                        modifier = Modifier.clickable { mostrarPickerInicio = true })
+                                },
+                                modifier = Modifier.fillMaxWidth().clickable { mostrarPickerInicio = true }
+                            )
+                        }
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Fecha Fin", style = MaterialTheme.typography.labelMedium)
+                            Spacer(Modifier.height(4.dp))
+                            OutlinedTextField(
+                                value = fechaFin,
+                                onValueChange = {},
+                                readOnly = true,
+                                placeholder = { Text("mm/dd/yyyy") },
+                                trailingIcon = {
+                                    Icon(Icons.Default.CalendarToday, contentDescription = null,
+                                        modifier = Modifier.clickable { mostrarPickerFin = true })
+                                },
+                                modifier = Modifier.fillMaxWidth().clickable { mostrarPickerFin = true }
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(16.dp))
+                    TextButton(
+                        onClick = { },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text("Guardar Reseña", fontWeight = FontWeight.SemiBold)
+                    }
+                }
+            }
+
             Spacer(Modifier.height(16.dp))
         }
+    }
+
+    if (mostrarPickerInicio) {
+        val estado = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { mostrarPickerInicio = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    estado.selectedDateMillis?.let { millis ->
+                        val formato = java.text.SimpleDateFormat("MM/dd/yyyy", java.util.Locale.getDefault())
+                        fechaInicio = formato.format(java.util.Date(millis))
+                    }
+                    mostrarPickerInicio = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { mostrarPickerInicio = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = estado) }
+    }
+
+    if (mostrarPickerFin) {
+        val estado = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { mostrarPickerFin = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    estado.selectedDateMillis?.let { millis ->
+                        val formato = java.text.SimpleDateFormat("MM/dd/yyyy", java.util.Locale.getDefault())
+                        fechaFin = formato.format(java.util.Date(millis))
+                    }
+                    mostrarPickerFin = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { mostrarPickerFin = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = estado) }
     }
 }
 
